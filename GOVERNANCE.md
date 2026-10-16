@@ -52,8 +52,8 @@ So it binds here first. The declared interest covers one system, so a filing fro
 conflict-free reviewer today; a filing from that system does not, and waits. Promotion needs an
 emitter that is not us. Every cited path is fetched by hand before a merge, ours included.
 
-The measurable consequence at 0.3.0 is that not one term here is canonical, because our own issuer
-does not count toward a promotion and the one crosswalk filed so far, aee-e2's, is a verifier's,
+The measurable consequence at 0.4.0 is that not one term here is canonical, because our own issuer
+does not count toward a promotion and the one crosswalk filed so far is a verifier's,
 which emits no value. Version 0.1.0 was different: six terms
 carried canonical status on our own issuer alone. That tag is still reachable, so both halves of
 this paragraph can be checked against the repository. Those six carried no crosswalk behind them,
@@ -61,6 +61,18 @@ the exact defect a listing must not carry under the rule above. Nobody had filed
 
 Demoting those six is the evidence, and the current state is not. A rule that has never had to move
 against the person who wrote it has not yet been tested.
+
+## Convergence and review
+
+A proposal that asks more than one party to agree names a date by which it
+should converge. If it has not converged by then, whoever opened it posts the
+options that emerged and asks a narrower yes-or-no question. A reply that never
+came is recorded as no reply, never as consent.
+
+A pull request that has waited a week with no reviewer goes on the next
+maintainer review as a standing line, with one question: who reviews it, by
+when. The line stays until a reviewer is named or the pull request is closed
+with a reason.
 
 ## Promotion and demotion
 
@@ -75,7 +87,7 @@ by that date, the term is demoted to reserved. It is removed at the next review-
 set on it, unless a production issuer surfaces first. A demoted term moves into the reserved block at
 the foot of `vocabulary.yaml` and is not silently deleted. That block takes two kinds of row and
 each says which it is: a term explicitly declined before it was ever proposed, and a term that was
-proposed and found none. It is empty at 0.3.0, because no review-by date has come round yet.
+proposed and found none. It is empty at 0.4.0, because no review-by date has come round yet.
 
 ## Conflict of interest
 
@@ -89,7 +101,7 @@ Committer access is granted on a sustained maintenance record, meaning reviewing
 crosswalks accurately over time. Filing one earns none, and running the validator once earns none.
 
 Nobody holds that record yet, the founding maintainer included. One crosswalk has been filed and
-reviewed, aee-e2's, and one review is not a sustained record. The first person to earn committer
+reviewed, and one review is not a sustained record. The first person to earn committer
 access here will earn it that way. Stated plainly so a reader testing the rule against the repository finds the answer
 already written down.
 

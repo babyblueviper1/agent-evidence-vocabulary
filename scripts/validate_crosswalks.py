@@ -35,6 +35,8 @@ TERM_SECTIONS = (
     "evidence_dimensions",
     "posture_and_coverage",
     "outcome_lattice",
+    "record_lifecycle",
+    "change_admission",
 )
 REQUIRED_TOP_LEVEL = ("system", "system_url", "crosswalk_version", "vocabulary_version_targeted")
 
@@ -320,8 +322,8 @@ def validate_crosswalk_file(path, known_terms, match_types, evidence_states, err
     if not saw_any_term_section:
         fail(
             filename,
-            "no recognized term section found (evidence_dimensions / "
-            "posture_and_coverage / outcome_lattice) -- this file maps no term, "
+            f"no recognized term section found ({' / '.join(TERM_SECTIONS)}) "
+            "-- this file maps no term, "
             "so nothing reading the registry would see it. If that is "
             "intentional (a system_attributes-only filing), it is currently "
             "unsupported; open an issue.",

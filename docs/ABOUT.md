@@ -55,7 +55,7 @@ actually spoken.
 
 ## Status
 
-Version 0.3.0, tagged September 25, 2026. It adds `recomputed` to the evidence states a crosswalk can declare, for a filer whose verifier agrees with the reference on every accepted member of a pinned corpus.
+Version 0.4.0, tagged October 13, 2026. It adds the `record_lifecycle` section, the `change_admission` section that the agent change admission predicate carries, and links from eight terms to the OpenCRE requirements their definitions state.
 
 The initial term set came from reading the nearest comparable registry term by term and recording,
 for each of ours, whether it names ground nobody has named yet or overlaps something already in
@@ -65,5 +65,5 @@ make their case in the definition itself.
 
 Every term is meant to land as a field inside a signed statement. Nobody consuming one should have
 to go hunting through documentation to learn what a claim withholds. Each release is tagged so a
-crosswalk has a fixed version to file against. Filings are open, and the first came from aee-e2, an
-independent second implementation of the predicate, in pull request 2.
+crosswalk has a fixed version to file against. Filings are open, and the first came from an independent
+second implementation of the predicate, in pull request 2.

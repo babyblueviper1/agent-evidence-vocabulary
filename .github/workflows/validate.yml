@@ -1,6 +1,6 @@
-# Four checks, none of which needs a credential, so all belong on every push and
-# none on a schedule: the crosswalk validator, the guide's own worked example run
-# through it, the ruled-out-phrase check, and the forbidden-string scan.
+# Every check below needs no credential beyond the job's own token, so all of
+# them belong on every push and none on a schedule. Each step says what it holds
+# the repository to; two of them read a live service on purpose and say so.
 #
 # Hermetic is a claim worth making precisely. The validator CAN reach the network:
 # it resolves an https source_path on an emitted claim with a live HEAD request,
@@ -30,8 +30,8 @@ jobs:
   validate-crosswalks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
@@ -78,6 +78,19 @@ jobs:
           # names the field that is wrong. Offline by construction.
           python3 scripts/test_recomputed_state.py
 
+      - name: Hold the registry and the validator to record_lifecycle
+        run: |
+          # Every revision_reason code carries a definition, and the validator
+          # accepts the term under its own section and refuses it elsewhere.
+          python3 scripts/test_record_lifecycle.py
+
+      - name: Hold the registry, the validator and the predicate page to change_admission
+        run: |
+          # The agent-change-admission predicate page lives at the URL signed
+          # decisions carry as their predicate type, and its gate table and wire
+          # fields must agree with the change_admission terms. Offline.
+          python3 scripts/test_change_admission.py
+
       - name: Hold the validator to reading every file in crosswalk/
         run: |
           # Every file in crosswalk/ is a crosswalk, a sidecar of one, or the
@@ -85,6 +98,39 @@ jobs:
           # builds a wrong directory per case and requires each to be refused by
           # name. Offline by construction.
           python3 scripts/test_crosswalk_directory.py
+
+      - name: Hold the registry to the attribution lines it carries
+        run: |
+          # The registry is CC0 and owes nobody attribution, so the validator
+          # reads term names and never the keys under them. A credit we gave in
+          # public would vanish from a term with nothing turning red. This
+          # requires each recorded credit on its own term, by name. Offline.
+          python3 scripts/test_attribution.py
+
+      - name: Hold the OpenCRE links to the shape OpenCRE imports
+        run: |
+          # OpenCRE's importer reads every opencre.org CRE URL in vocabulary.yaml,
+          # so each one must be a declared link on a term, in the one shape the
+          # importer reads, and docs/OPENCRE.md must list the same links. The test
+          # builds one wrong registry per way a link can be malformed and requires
+          # each refusal by name. The check then asks opencre.org that every
+          # linked CRE exists, a network call made on purpose: only the live
+          # catalogue can say whether an id is real. Exit 2 there means the
+          # catalogue could not be asked, which fails the job and is never a pass.
+          python3 scripts/test_check_opencre_links.py
+          python3 scripts/check_opencre_links.py --live
+
+      - name: Hold the AIMM levels page to its pinned releases
+        run: |
+          # docs/aimm-levels.md names vector families, cases and admission
+          # policies at a pinned tag and commit. The offline test holds the
+          # parser; the check then reads both trees from the GitHub API, which
+          # is a network call made on purpose: the claim is about a published
+          # tree, and only that tree can settle it.
+          python3 scripts/test_check_aimm_levels.py
+          python3 scripts/check_aimm_levels.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Reject ruled-out constructions in tracked prose
         run: |
